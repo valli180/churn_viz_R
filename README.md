@@ -1,2 +1,2 @@
 # churn_viz_R
-This repo contains R code for dash-ggplotly app for churn model
+This repo contains R code for dash-ggplotly app for churn data
