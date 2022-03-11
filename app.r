@@ -33,9 +33,10 @@ app$callback(
   output('plot-hist', 'figure'),
   list(input('col-select', 'value')),
   function(xcol) {
-    p <- ggplot(df_new, aes(x = !!sym(xcol),
-                            color = Churn,
-                            fill = Churn)) +
+    p <- ggplot(df_new)+
+      aes(x = !!sym(xcol),
+          color = Churn,
+          fill = Churn) +
       geom_histogram() +
       scale_x_log10() +
       ggtitle("Factors Effecting Churn") +
@@ -44,5 +45,5 @@ app$callback(
   }
 )
 
-app$run_server(host='0.0.0.0')
+app$run_server(host = '0.0.0.0')
 
