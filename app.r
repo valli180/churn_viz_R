@@ -18,7 +18,7 @@ app <- Dash$new(external_stylesheets = dbcThemes$BOOTSTRAP)
 app$layout(
   dbcContainer(
     list(
-      dccGraph(id='plot-area'),
+      dccGraph(id='plot-hist'),
       dccDropdown(
         id='col-select',
         options = df_new %>%
@@ -30,17 +30,19 @@ app$layout(
 )
 
 app$callback(
-  output('plot-area', 'figure'),
+  output('plot-hist', 'figure'),
   list(input('col-select', 'value')),
   function(xcol) {
     p <- ggplot(df_new, aes(x = !!sym(xcol),
-                            y = Churn,
-                            color = Churn)) +
-      geom_point() +
+                            color = Churn,
+                            fill = Churn)) +
+      geom_histogram() +
       scale_x_log10() +
+      ggtitle("Factors Effecting Churn") +
       ggthemes::scale_color_tableau()
     ggplotly(p)
   }
 )
 
-app$run_server(debug = T)
+app$run_server(host='0.0.0.0')
+
